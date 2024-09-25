@@ -49,6 +49,7 @@ state_response_template =
 	{set_result("voltage", notification["voltage"] | float)}
 	{set_result("current", notification["current"] | float)}
 	{set_result("energy", notification["allpower"] | float)}
+	{set_result("temp", notification["temp"] | float)}
 history_field_energy_consumption = 
 	parameter=energy
 	desc=Printer energy consumption
@@ -69,14 +70,12 @@ history_field_average_current =
 
 [power fritz_dect_switch]
 type = mqtt
-command_topic = home/devices/MyFritzBox/116570358981
+command_topic = cmnd/FB/MyFritzBox/116570608608/SETSWITCH
 command_payload = {command}
-query_topic = home/devices/MyFritzBox/116570358981/query
 state_topic = sensor/FB/MyFritzbox/116570608608
 state_response_template = 
 	{% set resp = payload|fromjson %}
 	{ resp["switchstate"] }
-query_after_command = false
 locked_while_printing = true
 
 [history]
